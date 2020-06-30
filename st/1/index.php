@@ -1,5 +1,5 @@
 <?php
-$nexterror = "";
+$error = "";
 	if(isset($_POST['addTask'])) {
 		if (isset($_COOKIE['tasks'])) {
 			foreach ($_COOKIE['tasks'] as $name => $value) {
