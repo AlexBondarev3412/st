@@ -1,9 +1,10 @@
 <?php
+$nexterror = "";
 	if(isset($_POST['addTask'])) {
 		if (isset($_COOKIE['tasks'])) {
 			foreach ($_COOKIE['tasks'] as $name => $value) {
-				$t = explode(";",$value);
-				if($t[0] == $_POST['taskValue']) {
+				$t = explode(";",$value);				
+				if($t[0] == strip_tags($_POST['taskValue'])) {
 					$error = "Такое задание уже существует!";
 					break;
 				}	
@@ -13,18 +14,19 @@
 			$count = 0;
 			if (isset($_COOKIE['tasks'])) {
 				foreach ($_COOKIE['tasks'] as $name => $value) {
-					if($name >= $count){ $count = $name + 1;
-					$error += $name;}
+					if($name >= $count) {
+						$count = $name + 1;
+					}
 				}
 			}
-			setcookie("tasks[".$count."]", $_POST['taskValue'].";0", time() + 3600);
+			setcookie("tasks[".$count."]", strip_tags($_POST['taskValue']).";0", time() + 3600);
 			header("Refresh: 0");
 		}
 	}
 	
 	if(isset($_POST['delTask'])) {
-	setcookie("tasks[".key($_POST['delTask'])."]", $_POST['taskValue'].";0", time() - 3600);
-	header("Refresh: 0");
+		setcookie("tasks[".key($_POST['delTask'])."]", strip_tags($_POST['taskValue']).";0", time() - 3600);
+		header("Refresh: 0");
 	}
 	
 	if(isset($_POST['setTask'])) {
@@ -53,7 +55,6 @@
 			<input type="submit" name="setTask" value="Отметить как выполненное"></br>
 <?php
 echo $error;
-
 ?>
 		</div>
 		<div class="block">

@@ -1,7 +1,7 @@
 <?php
 	include 'control.php';
-	$mig = new Mig;
-	$ty154 = new Ty154;
+	$mig = new Mig("МИГ");
+	$ty154 = new Ty154("ТУ-154");
 ?>
 <html lang="ru-RU">
 <head>
