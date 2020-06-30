@@ -30,13 +30,16 @@ $error = "";
 	}
 	
 	if(isset($_POST['setTask'])) {
+		$val = "";
 		if (isset($_COOKIE['tasks'])) {
 			foreach ($_COOKIE['tasks'] as $name => $value) {
 					if($name == $_POST['Radio']) $val = explode(";",$value);
 			}
 		}
-		setcookie("tasks[".$_POST['Radio']."]", $val[0].";1", time() + 3600);
-		header("Refresh: 0");
+		if($val != "") {
+			setcookie("tasks[".$_POST['Radio']."]", $val[0].";1", time() + 3600);
+			header("Refresh: 0");
+		}
 	}
 	
 ?>
