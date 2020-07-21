@@ -1,0 +1,13 @@
+.form-group {
+    width: 100%;
+    display: inline-block;
+}
+.form-inline .form-control {
+    width: 100%;
+}
+.col-md-3 label{
+    justify-content: left;
+}
+.btn-primary {
+    width: 250px;
+}
