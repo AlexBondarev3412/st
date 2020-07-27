@@ -21,17 +21,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
 
 Route::resource('bookshelf', 'BookshelfControl');
+Route::resource('comment', 'CommentsController');
+
+Route::post('/user/{user}/comments', 'CommentsController@store');
