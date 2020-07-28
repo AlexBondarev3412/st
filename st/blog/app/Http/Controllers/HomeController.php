@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = Usr::find(1);
-        return view('home')->withPost($users);
+        $user = Usr::find(1);
+        return view('home')->withUser($user);
     }
 }
