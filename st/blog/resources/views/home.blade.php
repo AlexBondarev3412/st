@@ -13,22 +13,39 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    @if(!is_null($user))
                     <h1>{{ __('Пользователь: '.$user->name) }}</h1>
                     <h3>{{ __('Комментарии: ') }}</h3>
                     <div class="comments">
                         <ul class="list-group">
-                            @if(count($user->comments) == 0) {{ "Комментарии отсутствуют!" }}
+                            @if(is_null($user->comments)) {{ "Комментарии отсутствуют!" }}
                             @endif
+                            @php
+                                $i = 0;
+                            @endphp
                             @foreach($user->comments as $comment)
                                 <li class="list-group-item" style="margin-bottom: 5px">
                                     <strong>
-                                        {{ \App\User::find($comment->author_id)->name }} ({{ $comment->created_at->diffForHumans() }}):
-                                    </strong> <br>
-                                    {{ $comment->body }}
+                                        <a href="/user/{{ $comment->author_id }}"> {{ \App\User::find($comment->author_id)->name }}</a> ({{ $comment->created_at->diffForHumans() }}):
+                                        @if($user->id == Auth::id() || $comment->author_id == Auth::id())
+                                            <a href="{{ URL::to('comment/'.$comment->id.'/del/') }}" class="btn badge-danger" style="float:right;padding: 3px">Удалить комментарий</a>
+                                        @endif
+
+                                    </strong><br>
+
+
+                                        {!! nl2br($comment->body) !!}
+
                                 </li>
+                                @if($loop->iteration > 4)
+                                    @break
+                                @endif
                             @endforeach
                         </ul>
+                        @if(count($user->comments) > 5)
+                            <center><a href="/" class="btn btn-primary" style="padding: 3px">Еще комментарии</a></center><br>
+                        @endif
+
                     </div>
                     <div class="card">
                         <div class="card-block">
@@ -44,6 +61,9 @@
                         </div>
                     </div>
                 </div>
+                @else
+                    {{ "Пользователь не найден" }}
+                @endif
             </div>
         </div>
     </div>
